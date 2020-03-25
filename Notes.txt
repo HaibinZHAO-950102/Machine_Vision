@@ -1,0 +1,47 @@
+## Image Reading, Showing and Saving
+from PIL import Image
+import matplotlib.pyplot as plt
+import numpy as np
+
+# reading image using PIL.Image
+I_pil = Image.open('cat.jpg')
+# Convert I_pil into numpy array for further processing
+I = np.array(I_pil)
+# convert into float
+I.astype(float)
+
+
+# showing the Image
+plt.imshow(I)
+plt.axis('off')
+plt.show()
+# if the image is gray image
+plt.imshow(I_gray, cmap = "gray") # cmap is for color map
+plt.axis('off')
+plt.show()
+
+# convert Array into PIL.Image for saving
+I_PIL = Image.fromarray(np.uint8(I))
+I_PIL.save('cat_save.png')
+
+# convert rgb to grayvalue image
+
+
+## Parameter of Images
+# size of the Image
+print(I.shape)    # as an np.array
+print(I_PIL.size) # as an PIL.Image
+
+
+## Numpy
+# matrix multiplication
+np.dot(a,b)
+# for a secquance of matrix: using the function "reduce"
+from functools import reduce
+reduce(np.dot,[a, b, c, d])
+# convert float into int
+I.astype(int)
+# creat a empty matrix
+Igray = np.empty([S[0],S[1]], dtype = float)
+# inverse matrix
+np.linalg.inv(matrix)
