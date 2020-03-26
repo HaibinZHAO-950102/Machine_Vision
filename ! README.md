@@ -21,4 +21,4 @@ wrote an imscale: to scale the image in x and y direction
 ## 26.03.2020
 wrote a Gamma Correction  
 
-trying to write a HDRI (high)  
+trying to write a HDRI (high dynamic range imaging)  
