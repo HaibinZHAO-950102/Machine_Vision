@@ -19,6 +19,15 @@ plt.show()
 plt.imshow(I_gray, cmap = "gray") # cmap is for color map
 plt.axis('off')
 plt.show()
+# show many figures
+plt.figure('Gamma Correction')
+plt.subplot(1,2,1)
+plt.imshow(I_gamma_1, cmap = "gray")
+plt.subplot(1,2,2)
+plt.imshow(I_gamma_2, cmap = "gray")
+plt.axis('off')
+plt.show()
+
 
 # convert Array into PIL.Image for saving
 I_PIL = Image.fromarray(np.uint8(I))
@@ -45,3 +54,37 @@ I.astype(int)
 Igray = np.empty([S[0],S[1]], dtype = float)
 # inverse matrix
 np.linalg.inv(matrix)
+# maximun and minimun
+I.max()
+I.min()
+# convert list to numpy-array
+np.array(a)  # where a is a list
+a = A.tolist()   # where A is a numpy array
+
+
+## python
+# quotient
+10 // 3 >>> 3
+# remainder
+10 % 3 >>> 1
+
+
+## math
+import math
+# ceil, floor
+math.ceil(10.1) >>> 11
+math.floor(10.9) >>> 10
+
+
+## matplotlib
+import matplotlib as plt
+plt.figure('name')
+plt.plot(x, y)
+plt.plot(x, y, color='blue', linewidth=5.0, linestyle='--')
+plt.xlim((-5, 5))
+plt.ylim((-2, 2))
+plt.xlabel('X_Axis')
+plt.ylabel('Y_Axis')
+plt.xticks([i - 5 for i in range(11)])
+plt.yticks([i - 2 for i in range(5)])
+plt.show()

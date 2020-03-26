@@ -1,5 +1,6 @@
 import numpy as np
 from functools import reduce
+import math
 
 def itpl(x, X, y, Y, Vxy, VXy, VxY, VXY, P):
     a = (X - x) * (Y - y)
@@ -70,3 +71,30 @@ def imscale(I, factorx, factory):
             V = itpl(x, X, y, Y, Vxy, VXy, VxY, VXY, P)
             I_scale[i,j] = V
     return I_scale
+
+def gammacorrection(I, gamma):
+    S = I.shape
+    gmax = I.max()
+    I_gamma = np.empty([S[0], S[1]])
+    for i in range(S[0]):
+        for j in range(S[1]):
+            I_gamma[i,j] = gmax * (I[i,j]/ gmax) ** gamma
+    return I_gamma
+
+def histogramm(I, resolution = 1):
+    a = math.ceil(256 / resolution)
+    H = [1 for i in range(a)]
+    H = np.array(H)
+    S = I.shape
+    for i in range(S[0]):
+        for j in range(S[1]):
+            H[int(I[i,j]//resolution)] = H[int(I[i,j]//resolution)] + 1
+    return H / H.sum()
+
+def hdri(*I):
+    S = I[1].shape
+    print(group)
+    I_group = np.empty([len(I), S[0], S[1]])
+    for i in range(len(I)):
+        I_group[i,:,:] = I[i]
+    return True
