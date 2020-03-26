@@ -16,6 +16,7 @@ wrote a rgb2gray: convert colorful image into gray value image
 wrote an imrotate: to rotate the Image  
 
 wrote an imscale: to scale the image in x and y direction  
+
 ---------------------------------------------------------------
 ## 26.03.2020
 wrote a Gamma Correction  
