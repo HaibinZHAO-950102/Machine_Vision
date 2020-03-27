@@ -2,6 +2,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 import machinevision as mv
+import FILTER as flt
 
 # test itpl (2D-Interpolation)
 # print(mv.itpl(0,1,0,1,0,1,2,3,[0.3, 0.7]))
@@ -10,7 +11,6 @@ import machinevision as mv
 # reading an Image
 I_PIL = Image.open('cat.jpg')
 I = np.array(I_PIL)
-
 # plt.figure('Image')
 # plt.imshow(I)
 # plt.axis('off')
@@ -20,7 +20,6 @@ I = np.array(I_PIL)
 
 # test rgb2gray (colorful image to gray value image)
 I_gray = mv.rgb2gray(I)
-
 # plt.figure('Gray Image')
 # plt.imshow(I_gray, cmap = "gray")
 # plt.axis('off')
@@ -29,16 +28,16 @@ I_gray = mv.rgb2gray(I)
 # I_gray_pil.save('cat_gray.png')
 
 # test imrotate (rotating an Image)
-# I_rotate = mv.imrotate(I_gray, np.pi/8)
+I_rotate = mv.imrotate(I_gray, -np.pi/8)
 # plt.figure('Rotate Image')
 # plt.imshow(I_rotate, cmap = "gray")
 # plt.axis('off')
 # plt.show()
 # I_rotate_pil = Image.fromarray(np.uint8(I_rotate))
 # I_rotate_pil.save('cat_rotate.png')
-#
-# # test imscale (scaling an Image)
-# I_scale = mv.imscale(I_gray, 0.8, 1.3)
+
+# test imscale (scaling an Image)
+I_scale = mv.imscale(I_gray, 0.8, 1.3)
 # plt.figure('Scale Image')
 # plt.imshow(I_scale, cmap = "gray")
 # plt.axis('off')
@@ -63,9 +62,9 @@ I_gamma_2 = mv.gammacorrection(I_gray, 0.1)
 # I_gamma_2_pil.save('I_gamma_2.png')
 
 # test histogramm
-# H_1 = mv.histogramm(I_gamma_1)
-# H_2 = mv.histogramm(I_gamma_2)
-# H_3 = mv.histogramm(I_gray)
+H_1 = mv.histogramm(I_gamma_1)
+H_2 = mv.histogramm(I_gamma_2)
+H_3 = mv.histogramm(I_gray)
 # plt.figure('Histogramm')
 # plt.subplot(1,3,1)
 # plt.bar(range(len(H_1)), H_1)
@@ -81,5 +80,22 @@ I_gamma_2 = mv.gammacorrection(I_gray, 0.1)
 # plt.xticks([0, 32, 64, 96, 128, 160, 192, 224, 255])
 # plt.show()
 
-# test hdri (high dynamic range imaging)
-I_hdri = mv.hdri(I_gray, I_gamma_1, I_gamma_2)
+# test convolution
+filter = flt.sobel('x')
+I_filter = mv.conv(I_gray, filter, 'cor')
+# plt.figure('I_Sobel')
+# plt.imshow(I_filter, cmap = "gray")
+# plt.axis('off')
+# plt.show()
+# I_filter_pil = Image.fromarray(np.uint8(I_filter))
+# I_filter_pil.save('cat_filter.png')
+
+# test flt
+motion_filter = flt.motionblur(20, np.pi*3/8)
+I_motion = mv.conv(I_gray, motion_filter, 'cor')
+plt.figure('Motion Blur')
+plt.imshow(I_motion, cmap = "gray")
+plt.axis('off')
+plt.show()
+I_motion_pil = Image.fromarray(np.uint8(I_motion))
+I_motion_pil.save('cat_motion_blur.png')

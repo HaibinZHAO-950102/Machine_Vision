@@ -97,4 +97,24 @@ def hdri(*I):
     I_group = np.empty([len(I), S[0], S[1]])
     for i in range(len(I)):
         I_group[i,:,:] = I[i]
-    return True
+    return True      # not finished
+
+def conv(I, filter, convolution_or_correlation = 'conv'):
+    S = I.shape
+    Sf = filter.shape
+    if convolution_or_correlation == 'cor':
+        filter_2 = np.empty([Sf[0], Sf[1]])
+        for i in range(Sf[0]):
+            for j in range(Sf[1]):
+                filter_2[i,j] = filter[-1-i, -1-j]
+        filter = filter_2
+    SI = [S[0] - Sf[0] + 1, S[1] - Sf[1] + 1]
+    I_filter = np.empty(SI)
+    for i in range(SI[0]):
+        for j in range(SI[1]):
+            I_filter[i,j] = 0
+            for m in range(Sf[0]):
+                for n in range(Sf[1]):
+                    I_filter[i,j] = I_filter[i,j] + I[i+m,j+n] * filter[-m-1,-n-1]
+    I_filter = (I_filter + np.min(I_filter)) / (np.max(I_filter) - np.min(I_filter)) * 255
+    return I_filter
