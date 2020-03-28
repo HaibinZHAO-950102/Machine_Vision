@@ -12,8 +12,12 @@ def itpl(x, X, y, Y, Vxy, VXy, VxY, VXY, P):
 
 def rgb2gray(I):
     S = I.shape
-    Igray = I[:,:,0] * 0.3 + I[:,:,1] * 0.59 + I[:,:,2] * 0.11
-    return Igray
+    if len(S) == 3:
+        Igray = I[:,:,0] * 0.3 + I[:,:,1] * 0.59 + I[:,:,2] * 0.11
+        return Igray
+    elif len(S) < 3:
+        print('The input Image is already a gray value Image.')
+        return I
 
 def imrotate(I, angle):
     R = np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
@@ -116,5 +120,6 @@ def conv(I, filter, convolution_or_correlation = 'conv'):
             for m in range(Sf[0]):
                 for n in range(Sf[1]):
                     I_filter[i,j] = I_filter[i,j] + I[i+m,j+n] * filter[-m-1,-n-1]
-    I_filter = (I_filter + np.min(I_filter)) / (np.max(I_filter) - np.min(I_filter)) * 255
+    a = np.sign(np.min(I_filter))
+    I_filter = (I_filter - a * np.min(I_filter)) / (np.max(I_filter) - np.min(I_filter)) * 255
     return I_filter

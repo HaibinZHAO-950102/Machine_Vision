@@ -60,7 +60,12 @@ I.min()
 # convert list to numpy-array
 np.array(a)  # where a is a list
 a = A.tolist()   # where A is a numpy array
-
+# determinate
+np.linalg.det(a)
+# eigen value
+np.linalg.eig(a)
+# unit matrix
+np.eye()
 
 ## python
 # quotient
@@ -74,7 +79,8 @@ import math
 # ceil, floor
 math.ceil(10.1) >>> 11
 math.floor(10.9) >>> 10
-
+# exponentation
+math.exp()
 
 ## matplotlib
 import matplotlib as plt
